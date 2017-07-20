@@ -42,7 +42,10 @@ func _process(delta):
 		if player_speed > -max_speed:
 			player_speed -= player_acceleration
 	else:
-		player_speed = player_speed - player_acceleration if player_speed > 0.0 else player_speed + player_acceleration
+		if player_speed > 0.0:
+			player_speed -= player_acceleration
+		elif player_speed < 0.0: 
+			player_speed += player_acceleration
 			
 	# STEERING
 	if((steer_left or steer_right) and player_speed != 0.0):
@@ -56,21 +59,22 @@ func _process(delta):
 		if steer_angle != 0.0:
 			steer_angle = steer_angle + steer_speed if steer_angle < 0.0 else steer_angle - steer_speed
 		
-	var h = deg2rad(player_heading)
-	var player_pos = player.get_pos()
+	if player_speed != 0.0:
+		var h = deg2rad(player_heading)
+		var player_pos = player.get_pos()
+		
+		front_wheels = player_pos + wheel_base / 2.0 * Vector2(cos(h), sin(h))
+		back_wheels = player_pos - wheel_base / 2.0 * Vector2(cos(h), sin(h))
 	
-	front_wheels = player_pos + wheel_base / 2.0 * Vector2(cos(h), sin(h))
-	back_wheels = player_pos - wheel_base / 2.0 * Vector2(cos(h), sin(h))
-
-	front_wheels += player_speed * delta * Vector2(cos(h + deg2rad(steer_angle)), sin(h + deg2rad(steer_angle)))
-	back_wheels += player_speed * delta * Vector2(cos(h), sin(h))
-	
-	player_pos = (front_wheels + back_wheels) / 2.0
-	player_heading = rad2deg(atan2(front_wheels.y - back_wheels.y, front_wheels.x - back_wheels.x))
-	player.set_pos(player_pos)
-	player.set_rotd(-player_heading)
-	
-	print(player_heading)
+		front_wheels += player_speed * delta * Vector2(cos(h + deg2rad(steer_angle)), sin(h + deg2rad(steer_angle)))
+		back_wheels += player_speed * delta * Vector2(cos(h), sin(h))
+		
+		player_pos = (front_wheels + back_wheels) / 2.0
+		player_heading = rad2deg(atan2(front_wheels.y - back_wheels.y, front_wheels.x - back_wheels.x))
+		player.set_pos(player_pos)
+		player.set_rotd(-player_heading)
+		
+		print(player_heading)
 	
 	update()
 	
