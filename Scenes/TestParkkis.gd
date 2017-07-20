@@ -2,7 +2,6 @@ extends Node2D
 
 var screen_size
 var player
-var player_size
 var player_heading = 0.0
 var player_speed = 0.0
 var player_acceleration = 0.3
@@ -21,7 +20,6 @@ const wheel_base = 4.8
 func _ready():
 	screen_size = get_viewport_rect().size
 	player = get_node("player")
-	player_size = player.get_texture().get_size()
 	player_heading = player.get_rotd()
 	
 	var h = deg2rad(player_heading)
@@ -70,7 +68,7 @@ func _process(delta):
 	player_pos = (front_wheels + back_wheels) / 2.0
 	player_heading = rad2deg(atan2(front_wheels.y - back_wheels.y, front_wheels.x - back_wheels.x))
 	player.set_pos(player_pos)
-	player.set_rotd(-90 - player_heading)
+	player.set_rotd(-player_heading)
 	
 	print(player_heading)
 	
