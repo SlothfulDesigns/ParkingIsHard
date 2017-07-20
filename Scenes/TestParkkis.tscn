@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=1]
+
+[ext_resource path="res://Scenes/TestParkkis.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/Cars.png" type="Texture" id=2]
+
+[sub_resource type="AtlasTexture" id=1]
+
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 44, 74 )
+margin = Rect2( 0, 0, 0, 0 )
+
+[node name="Game" type="Node2D"]
+
+transform/pos = Vector2( 514.286, 300.671 )
+transform/scale = Vector2( 16.0279, 9.38065 )
+script/script = ExtResource( 1 )
+
+[node name="player" type="Sprite" parent="."]
+
+transform/pos = Vector2( 1.39103, -0.367863 )
+transform/scale = Vector2( 0.05, 0.07 )
+texture = SubResource( 1 )
+
+
