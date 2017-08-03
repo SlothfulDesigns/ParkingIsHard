@@ -1,19 +1,26 @@
-[gd_scene load_steps=3 format=1]
+[gd_scene load_steps=4 format=1]
 
 [ext_resource path="res://Scenes/TestParkkis.gd" type="Script" id=1]
-[ext_resource path="res://Sprites/corsa.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/corsa2.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/car.gd" type="Script" id=3]
 
 [node name="Game" type="Node2D"]
 
-transform/pos = Vector2( 534.066, 301.694 )
-transform/scale = Vector2( 16.0279, 9.38065 )
+z/relative = false
 script/script = ExtResource( 1 )
 
 [node name="player" type="Sprite" parent="."]
 
-transform/pos = Vector2( 11.1166, 4.93592 )
-transform/scale = Vector2( 0.0105497, 0.0174873 )
+transform/pos = Vector2( 26.5928, 22.1606 )
+transform/scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 2 )
-flip_h = true
+script/script = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player"]
+
+transform/pos = Vector2( -15.8809, -4.93592 )
+transform/scale = Vector2( 1.42857, 1 )
+trigger = false
+_update_shape_index = -1
 
 
